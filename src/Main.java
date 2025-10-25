@@ -371,4 +371,50 @@ public class Main {
         System.out.println("");
     }
 
+    //Performance Reports
+    static void generateReports() {
+
+        double totalDistance = 0;
+        double totalTime = 0;
+        double totalRevenue = 0;
+        double minDistance = Double.MAX_VALUE;
+        double maxDistance = 0;
+
+        for(int i = 0; i < deliveryCount; i++) {
+            String record = deliveryRecords[i];
+            String[] parts = record.split(",");
+
+            //Distance
+            String distStr = parts[2].split(":")[1].trim().replace("km", "").trim();
+            double distance = Double.parseDouble(distStr);
+            totalDistance += distance;
+
+            // Revenue
+            String chargeStr = parts[5].split(":")[1].trim().replace("LKR", "").trim();
+            double revenue = Double.parseDouble(chargeStr);
+            totalRevenue += revenue;
+
+            //Average time
+            String timeStr = parts[6].split(":")[1].trim().replace("hrs", "").trim();
+            double time = Double.parseDouble(timeStr);
+            totalTime += time;
+
+            if(distance < minDistance) minDistance = distance;
+            if(distance > maxDistance) maxDistance = distance;
+        }
+
+        double averageTime = totalTime / deliveryCount;
+        double totalProfit = totalRevenue * 0.2; // Approximate profit
+
+        System.out.println("-----------PERFORMANCE REPORTS----------");
+        System.out.println("Total Deliveries Completed: " + deliveryCount);
+        System.out.printf("Total Distance Covered: %.2f km\n",totalDistance);
+        System.out.printf("Average Delivery Time: %.2f hours\n",averageTime);
+        System.out.printf("Total Revenue: %.2f LKR\n",totalRevenue);
+        System.out.printf("Total Profit: %.2f LKR\n",totalProfit);
+        System.out.printf("Shortest Route: %.2f km\n",minDistance);
+        System.out.printf("Longest Route: %.2f km\n",maxDistance);
+        System.out.println("");
+    }
+
 }
