@@ -28,5 +28,46 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("----------LOGISTICS MANAGEMENT SYSTEM----------");
+            System.out.println("1.City Management");
+            System.out.println("2.Distance Management");
+            System.out.println("3.Delivery Request Handling");
+            System.out.println("4.Delivery Records");
+            System.out.println("5.Performance Reports");
+            System.out.println("6.Save and Exit");
+            System.out.println("-----------------------------------------------");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch(choice) {
+                case 1:
+                    cityManagement();
+                    break;
+                case 2:
+                    distanceManagement();
+                    break;
+                case 3:
+                    handleDeliveryRequest();
+                    break;
+                case 4:
+                    viewDeliveryRecords();
+                    break;
+                case 5:
+                    generateReports();
+                    break;
+                case 6:
+                    saveDataToFiles();
+                    System.out.println("Data Successfully Saved");
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        } while(choice != 6);
+
+        sc.close();
     }
 }
