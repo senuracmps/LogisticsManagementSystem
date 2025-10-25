@@ -28,6 +28,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        loadDataFromFile();
+
         Scanner sc = new Scanner(System.in);
         int choice;
 
@@ -459,6 +461,73 @@ public class Main {
 
         } catch(IOException e) {
             System.out.println("Error saving deliveries: " + e.getMessage());
+        }
+    }
+
+    //Load files
+    static void loadDataFromFile() {
+        loadRoutesFromFile();
+        loadDeliveriesFromFile();
+    }
+
+    static void loadRoutesFromFile() {
+        try {
+            File file = new File(ROUTES_FILE);
+
+            Scanner fileScanner = new Scanner(file);
+
+            //Read cities
+            if(fileScanner.hasNextLine()) {
+                String citiesLine = fileScanner.nextLine();
+                String[] cityNames = citiesLine.split(",");
+                cityCount = 0;
+
+                for(String cityName : cityNames) {
+                    if(cityCount < MAX_CITIES && !cityName.trim().isEmpty()) {
+                        cities[cityCount] = cityName.trim();
+                        cityCount++;
+                    }
+                }
+            }
+
+            //Read distances
+            int row = 0;
+            while(fileScanner.hasNextLine() && row < cityCount) {
+                String line = fileScanner.nextLine();
+                String[] values = line.split(",");
+
+                for(int col = 0; col < cityCount; col++) {
+                    if(col < values.length) {
+                        distances[row][col] = Integer.parseInt(values[col].trim());
+                    }
+                }
+                row++;
+            }
+            fileScanner.close();
+
+        } catch(IOException e) {
+            System.out.println("Error loading routes: " + e.getMessage());
+        }
+    }
+
+    static void loadDeliveriesFromFile() {
+        try {
+            File file = new File(DELIVERIES_FILE);
+
+            Scanner fileScanner = new Scanner(file);
+            deliveryCount = 0;
+
+            while(fileScanner.hasNextLine() && deliveryCount < MAX_DELIVERIES) {
+                String record = fileScanner.nextLine().trim();
+                if(!record.isEmpty()) {
+                    deliveryRecords[deliveryCount] = record;
+                    deliveryCount++;
+                }
+            }
+            fileScanner.close();
+
+        } catch(IOException e) {
+            System.out.println("Error loading deliveries: " + e.getMessage());
         }
     }
 
