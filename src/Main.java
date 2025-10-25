@@ -60,7 +60,7 @@ public class Main {
                     generateReports();
                     break;
                 case 6:
-                    saveDataToFiles();
+                    saveDataToFile();
                     System.out.println("Data Successfully Saved");
                     break;
                 default:
@@ -415,6 +415,51 @@ public class Main {
         System.out.printf("Shortest Route: %.2f km\n",minDistance);
         System.out.printf("Longest Route: %.2f km\n",maxDistance);
         System.out.println("");
+    }
+
+    //File Handling methods
+    static void saveDataToFile() {
+        saveRoutesToFile();
+        saveDeliveriesToFile();
+    }
+
+    static void saveRoutesToFile() {
+        try {
+            PrintWriter writer = new PrintWriter(ROUTES_FILE);
+
+            // Save cities
+            for(int i = 0; i < cityCount; i++) {
+                writer.print(cities[i]);
+                if(i < cityCount - 1) writer.print(",");
+            }
+            writer.println();
+
+            // Save distances
+            for(int i = 0; i < cityCount; i++) {
+                for(int j = 0; j < cityCount; j++) {
+                    writer.print(distances[i][j]);
+                    if(j < cityCount - 1) writer.print(",");
+                }
+                writer.println();
+            }
+            writer.close();
+
+        } catch(IOException e) {
+            System.out.println("Error saving routes: " + e.getMessage());
+        }
+    }
+
+    static void saveDeliveriesToFile() {
+        try {
+            PrintWriter writer = new PrintWriter(DELIVERIES_FILE);
+            for(int i = 0; i < deliveryCount; i++) {
+                writer.println(deliveryRecords[i]);
+            }
+            writer.close();
+
+        } catch(IOException e) {
+            System.out.println("Error saving deliveries: " + e.getMessage());
+        }
     }
 
 }
