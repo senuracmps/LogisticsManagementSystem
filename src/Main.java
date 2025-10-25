@@ -295,8 +295,53 @@ public class Main {
 
         // Find minimum distance (using direct distance for now)
         int minDistance = distances[source][dest];
+
+        //Calculate and display delivery cost
+        calculateAndDisplayDeliveryCost(source,dest,minDistance,weight,vehicleType);
     }
 
+    static void calculateAndDisplayDeliveryCost(int source,int dest,int distance,double weight,int vehicleType) {
+        String vehicleName = vehicleTypes[vehicleType];
+        int ratePerKm = ratesPerKm[vehicleType];
+        int speed = avgSpeeds[vehicleType];
+        int efficiency = fuelEfficiencies[vehicleType];
 
+        //Calculate base cost
+        double baseCost = distance * ratePerKm * (1 + weight / 10000.0);
+
+        //Calculate fuel consumption
+        double fuelUsed = (double)distance / efficiency;
+        double fuelCost = fuelUsed * FUEL_PRICE;
+
+        //Calculate operational cost
+        double operationalCost = baseCost + fuelCost;
+
+        //Calculate profit (25% markup on base cost)
+        double profit = baseCost * 0.25;
+
+        //Calculate final charge
+        double customerCharge = operationalCost + profit;
+
+        //Calculate estimated time
+        double estimatedTime = (double)distance / speed;
+
+        //Display results
+        System.out.println("----------DELIVERY COST ESTIMATION----------");
+        System.out.println("From: " + cities[source]);
+        System.out.println("To: " + cities[dest]);
+        System.out.println("Distance: " + distance + " km");
+        System.out.println("Vehicle: " + vehicleName);
+        System.out.println("Weight: " + weight + " kg");
+        System.out.println("--------------------------------");
+        System.out.printf("Base Cost: %.2f LKR\n",baseCost);
+        System.out.printf("Fuel Used: %.2f L\n",fuelUsed);
+        System.out.printf("Fuel Cost: %.2f LKR\n",fuelCost);
+        System.out.printf("Operational Cost: %.2f LKR\n",operationalCost);
+        System.out.printf("Profit: %.2f LKR\n",profit);
+        System.out.printf("Customer Charge: %.2f LKR\n",customerCharge);
+        System.out.printf("Estimated Time: %.2f hours\n",estimatedTime);
+        System.out.println("--------------------------------");
+        System.out.println("");
+    }
 
 }
