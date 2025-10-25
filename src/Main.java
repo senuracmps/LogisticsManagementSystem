@@ -206,4 +206,54 @@ public class Main {
             }
         } while(choice != 3);
     }
+
+    //Distance management functions
+    static void setDistanceBetweenCities(Scanner sc) {
+        allCities();
+        System.out.print("Enter source city number: ");
+        int source = sc.nextInt() - 1;
+        System.out.print("Enter destination city number: ");
+        int dest = sc.nextInt() - 1;
+
+
+        if(source == dest) {
+            System.out.println("Source and destination cannot be the same!");
+            return;
+        }
+
+        System.out.print("Enter distance (km): ");
+        int distance = sc.nextInt();
+
+
+        setDistance(source,dest,distance);
+        System.out.println("Distance set successfully!");
+    }
+
+    static void setDistance(int source,int dest,int distance) {
+        distances[source][dest] = distance;
+        distances[dest][source] = distance;
+    }
+
+    static void displayDistanceTable() {
+
+        System.out.println("----------DISTANCE TABLE----------");
+        System.out.printf("%-15s","");
+        for(int i = 0; i < cityCount; i++) {
+            System.out.printf("%-15s",cities[i]);
+        }
+        System.out.println();
+
+        for(int i = 0; i < cityCount; i++) {
+            System.out.printf("%-15s",cities[i]);
+            for(int j = 0; j < cityCount; j++) {
+                if(distances[i][j] == -1) {
+                    System.out.printf("%-15s","N/A"); //N/A means not available
+                } else {
+                    System.out.printf("%-15d",distances[i][j]);
+                }
+            }
+            System.out.println();
+        }
+    }
+
 }
