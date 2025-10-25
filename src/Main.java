@@ -114,4 +114,68 @@ public class Main {
         }
     }
 
+    //City management functions
+    static void addNewCity(Scanner sc) {
+        if(cityCount >= MAX_CITIES) {
+            System.out.println("Maximum city limit reached!");
+            return;
+        }
+
+        System.out.print("Enter city name: ");
+        String cityName = sc.nextLine().trim();
+
+        cities[cityCount] = cityName;
+        cityCount++;
+        System.out.println(cityName + " added successfully!");
+    }
+
+    static void renameCity(Scanner sc) {
+        allCities();
+        System.out.print("Enter city number to rename: ");
+        int cityIndex = sc.nextInt() - 1;
+        sc.nextLine(); // consume newline
+
+
+        System.out.print("Enter new name for " + cities[cityIndex] + ": ");
+        String newName = sc.nextLine().trim();
+
+
+        cities[cityIndex] = newName;
+        System.out.println("City renamed");
+    }
+
+    static void removeCity(Scanner sc) {
+        allCities();
+        System.out.print("Enter city number to remove: ");
+        int cityIndex = sc.nextInt() - 1;
+
+        //Shift cities array
+        for(int i = cityIndex; i < cityCount - 1; i++) {
+            cities[i] = cities[i + 1];
+        }
+        cities[cityCount - 1] = null;
+        cityCount--;
+
+        //Shift distances matrix
+        shiftDistancesMatrix(cityIndex);
+
+        System.out.println("City removed");
+    }
+
+    static void shiftDistancesMatrix(int removedIndex) {
+        //Shift rows up
+        for(int i = removedIndex; i < cityCount; i++) {
+            for(int j = 0; j < MAX_CITIES; j++) {
+                distances[i][j] = distances[i + 1][j];
+            }
+        }
+
+        //Shift columns left
+        for(int i = 0; i < cityCount; i++) {
+            for(int j = removedIndex; j < cityCount; j++) {
+                distances[i][j] = distances[i][j + 1];
+            }
+        }
+    }
+
 }
