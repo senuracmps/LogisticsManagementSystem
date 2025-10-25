@@ -178,4 +178,33 @@ public class Main {
         }
     }
 
+    //Distance Management
+    static void distanceManagement() {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("----------DISTANCE MANAGEMENT----------");
+            System.out.println("1.Set/Edit Distance");
+            System.out.println("2.View Distance Table");
+            System.out.println("3.Back");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+
+            switch(choice) {
+                case 1:
+                    setDistance(sc);
+                    break;
+                case 2:
+                    displayDistanceTable();
+                    break;
+                case 3:
+                    System.out.println("Returning");
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        } while(choice != 3);
+    }
+
 }
