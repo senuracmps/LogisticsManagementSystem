@@ -264,4 +264,39 @@ public class Main {
         System.out.println("3.Lorry - Capacity: 10000kg, Rate: 80 LKR/km, Speed: 45 km/h");
     }
 
+
+    //Delivery Request Handling
+    static void handleDeliveryRequest() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        allCities();
+        System.out.print("Enter source city number: ");
+        int source = scanner.nextInt() - 1;
+        System.out.print("Enter destination city number: ");
+        int dest = scanner.nextInt() - 1;
+
+        if(source == dest) {
+            System.out.println("Source and destination cannot be the same!");
+            return;
+        }
+
+        System.out.print("Enter package weight (kg): ");
+        double weight = scanner.nextDouble();
+
+        displayVehicleTypes();
+        System.out.print("Select vehicle type (1-3): ");
+        int vehicleType = scanner.nextInt() - 1;
+
+        if(weight > capacities[vehicleType]) {
+            System.out.println("Weight exceeds vehicle capacity! Maximum: " + capacities[vehicleType] + "kg");
+            return;
+        }
+
+        // Find minimum distance (using direct distance for now)
+        int minDistance = distances[source][dest];
+    }
+
+
+
 }
