@@ -357,4 +357,18 @@ public class Main {
         System.out.println("Delivery record saved!");
     }
 
+    //Display delivery records
+    static void viewDeliveryRecords() {
+        System.out.println("----------DELIVERY RECORDS---------");
+        if(deliveryCount == 0) {
+            System.out.println("No delivery records available");
+            return;
+        }
+
+        for(int i = 0; i < deliveryCount; i++) {
+            System.out.println((i + 1) + "." + deliveryRecords[i]);
+        }
+        System.out.println("");
+    }
+
 }
