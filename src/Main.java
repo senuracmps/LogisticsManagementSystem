@@ -256,4 +256,12 @@ public class Main {
         }
     }
 
+    //Print all vehicle data
+    static void displayVehicleTypes() {
+        System.out.println("----------VEHICLE TYPES----------");
+        System.out.println("1.Van   - Capacity: 1000kg,  Rate: 30 LKR/km, Speed: 60 km/h");
+        System.out.println("2.Truck - Capacity: 5000kg,  Rate: 40 LKR/km, Speed: 50 km/h");
+        System.out.println("3.Lorry - Capacity: 10000kg, Rate: 80 LKR/km, Speed: 45 km/h");
+    }
+
 }
