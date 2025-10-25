@@ -342,6 +342,19 @@ public class Main {
         System.out.printf("Estimated Time: %.2f hours\n",estimatedTime);
         System.out.println("--------------------------------");
         System.out.println("");
+
+        //Save delivery record
+        saveDeliveryRecord(cities[source],cities[dest],distance,weight,vehicleName,customerCharge,estimatedTime);
+    }
+
+    static void saveDeliveryRecord(String from,String to,int distance,double weight,String vehicle,double charge,double time) {
+
+        String record = String.format("From: %s, To: %s, Distance: %d km, Weight: %.1f kg, Vehicle: %s, Charge: %.2f LKR, Time: %.2f hrs",
+                from,to,distance,weight,vehicle,charge,time);
+        deliveryRecords[deliveryCount] = record;
+        deliveryCount++;
+
+        System.out.println("Delivery record saved!");
     }
 
 }
