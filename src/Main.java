@@ -104,4 +104,14 @@ public class Main {
             }
         } while(choice != 4);
     }
+
+    //Print all cities
+    static void allCities() {
+        System.out.println("----------LIST OF CITIES----------");
+
+        for(int i = 0; i < cityCount; i++) {
+            System.out.println((i + 1) + "." + cities[i]);
+        }
+    }
+
 }
